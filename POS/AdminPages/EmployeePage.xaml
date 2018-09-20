@@ -1,0 +1,226 @@
+﻿<Page
+    x:Class="POS.EmployeePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+        xmlns:data="using:POS.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d" Loading="Page_Loading">
+
+    <Page.Resources>
+        <!--Employee List -->
+        <DataTemplate x:DataType="data:Employee" x:Key="EmployeeListDataTemplate" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="{x:Bind fullname}" HorizontalAlignment="Left" FontSize="20" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="Transparent">
+
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MaxWidth="350" MinWidth="210"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!--Add Employee Popup Menu -->
+        <Popup VerticalAlignment="Center" Grid.ColumnSpan="5" Grid.RowSpan="7" HorizontalAlignment="Center" x:Name="Popup" IsLightDismissEnabled="True" Width="235" Height="250">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PopupThemeTransition FromHorizontalOffset="0" FromVerticalOffset="200"></PopupThemeTransition>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <StackPanel Background="Transparent" Padding="12">
+                <Grid Padding="12">
+                    <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
+                <TextBlock Text="Add Employee" FontSize="16" Margin="0,0,0,4"></TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="firstName" PlaceholderText="First Name" FontSize="25" Height="50"/>
+                    <TextBox x:Name="lastName" PlaceholderText="Last Name" FontSize="25" Grid.Row="1" Height="50"/>
+                    <PasswordBox x:Name="passcodeBox" PlaceholderText="Passcode" FontSize="25" Grid.Row="2" Height="50"/>
+
+                    <Button x:Name="addEmployeeToList" Content="Add" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="3" VerticalAlignment="Top" Click="addEmployeeToList_Click"/>
+                   
+                </Grid>
+                    
+                        </StackPanel>
+                    <Grid x:Name="addEmployColor" Canvas.ZIndex="-1" Grid.RowSpan="3">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:Blur  Value="25"/>
+                        </interactivity:Interaction.Behaviors>
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.4"/>
+                        </Grid.Background>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Popup>
+
+        <Grid Grid.Column="0" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock  Text="Employee List" FontSize="25"/>
+
+                <ListView  x:Name="employeeListView"  IsItemClickEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{x:Bind Employees}" Background="#00F2F2F2" ItemTemplate="{StaticResource EmployeeListDataTemplate}" ItemClick="employeeListView_ItemClick" />
+            </StackPanel>
+            <Button x:Name="addEmploy" Grid.Row="1" Content="Add Employee" HorizontalAlignment="Center"  VerticalAlignment="Top" Click="addEmploy_Click" Margin="0,15,0,15"/>
+
+            <Grid x:Name="employeeListColor" Canvas.ZIndex="-1" Grid.RowSpan="3">
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:Blur  Value="25" />
+                </interactivity:Interaction.Behaviors>
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.4"/>
+                </Grid.Background>
+            </Grid>
+        </Grid>
+        
+        
+        <!--Employee details -->
+               
+         <ScrollViewer x:Name="employeeSetingsView" VerticalScrollBarVisibility="Auto" Grid.Column="1" Visibility="Collapsed" >
+            <Grid  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60*"  MaxWidth="700"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel HorizontalAlignment="Stretch" Grid.Column="1" >
+                    <TextBlock Text="First:" FontSize="26" HorizontalAlignment="Left" />
+                    <TextBox  x:Name="editFirstName"  FontSize="18"/>
+                    <TextBlock Text="Last:" FontSize="26" HorizontalAlignment="Left" />
+                    <TextBox x:Name="editLastName"  FontSize="18"/>
+                    <TextBlock Text="Permissions:" FontSize="26" HorizontalAlignment="Left" />
+                    <TextBlock Text=" Is an admin?" HorizontalAlignment="Left" FontSize="18" />
+                    <ToggleSwitch x:Name="isAdminSwitch" HorizontalAlignment="Left" OnContent="Is" OffContent="Is Not" Toggled="isAdminSwitch_Toggled"/>
+                    <ListView SelectionMode="None" ScrollViewer.VerticalScrollMode="Disabled">
+                        <ListViewItem >
+                            <StackPanel>
+                                <TextBlock  FontSize="22" HorizontalAlignment="Left">
+                                    <Underline>Ticket:</Underline>
+                                </TextBlock>
+
+                            <TextBlock Text="Can create tickets?" HorizontalAlignment="Left" FontSize="18"/>
+                            <ToggleSwitch x:Name="canCreateTciket" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+
+                            <TextBlock Text="Can create custom items?" HorizontalAlignment="Left" FontSize="18"/>
+                            <ToggleSwitch x:Name="canCreateCustItem" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text="Can override minimum quantity?" HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="overMin" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text="Can adjust item price/discount?" HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="adjustPrice" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text="Can look up tickets?" HorizontalAlignment="Left" FontSize="18"/>
+                            <ToggleSwitch x:Name="canLoopUpTicket"  HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+                            <TextBlock Text=" Can do a refund with ticket?" FontSize="18" HorizontalAlignment="Left"/>
+                            <ToggleSwitch x:Name="canDoRefundSwitch" HorizontalAlignment="Left"   OnContent="Can" OffContent="Can Not" />
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem >
+                            <StackPanel >
+                                <TextBlock  FontSize="22" HorizontalAlignment="Left">
+                                    <Underline>Financial:</Underline>
+                                </TextBlock>
+                                <TextBlock Text=" Can open till?" HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="openTill" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+
+                                <TextBlock Text=" Can use till that was opened by another user?" HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="tillUser" HorizontalAlignment="Left" OnContent="Can" OffContent="Can Not" />
+
+                                <TextBlock Text=" Can do a refund without a ticket?" HorizontalAlignment="Left" FontSize="18" />
+                                <ToggleSwitch x:Name="canDoRefundWOTicketSwitch" HorizontalAlignment="Left"  OnContent="Can" OffContent="Can Not" />
+
+                                <TextBlock Text=" Can add or drop money?" HorizontalAlignment="Left"  FontSize="18"/>
+                                <ToggleSwitch x:Name="addOrDrop" HorizontalAlignment="Left" OnContent="Can"  OffContent="Can Not" />
+
+                            </StackPanel>
+
+                        </ListViewItem>
+                        <ListBoxItem >
+                            <StackPanel >
+                                <TextBlock FontSize="22" HorizontalAlignment="Left" Margin="-10,0,0,0">
+                                    <Underline>Access:</Underline>
+                                </TextBlock>
+                                <TextBlock Text="Can access own timestamps?" Margin="-10,0,0,0"  HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="viewOwnTime" HorizontalAlignment="Left" Margin="-10,0,0,0" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text=" Can access reports page?" HorizontalAlignment="Left" Margin="-10,0,0,0" FontSize="18"/>
+                                <ToggleSwitch x:Name="accessReports" HorizontalAlignment="Left" OnContent="Can" Margin="-10,0,0,0" OffContent="Can Not" />
+                                
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem >
+                            <StackPanel >
+                                <TextBlock  FontSize="22" HorizontalAlignment="Left" Margin="-10,0,0,0">
+                                    <Underline>Customer:</Underline>
+                                </TextBlock>
+                                <TextBlock Text="Can create a customer?" Margin="-10,0,0,0"  HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="createCust" HorizontalAlignment="Left" Margin="-10,0,0,0" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text="Can edit a customer's information?" Margin="-10,0,0,0"  HorizontalAlignment="Left" FontSize="18"/>
+                                <ToggleSwitch x:Name="editCust" HorizontalAlignment="Left" Margin="-10,0,0,0" OnContent="Can" OffContent="Can Not" />
+                                <TextBlock Text=" Can view customer history?" HorizontalAlignment="Left" Margin="-10,0,0,0" FontSize="18"/>
+                                <ToggleSwitch x:Name="histCust" HorizontalAlignment="Left" OnContent="Can" Margin="-10,0,0,0" OffContent="Can Not" />
+
+                            </StackPanel>
+                        </ListBoxItem>
+
+
+
+                        
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:WrapPanel Background="Transparent"
+                                        VerticalSpacing="5"
+                                        HorizontalSpacing="5"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+
+                    </ListView>
+                                    
+                    
+                                    
+                    
+
+                    <TextBlock Text=" Change passcode" HorizontalAlignment="Left" Padding="0" FontSize="26"/>
+                                    <PasswordBox x:Name="changePasswordBox"  PlaceholderText="Enter new password." />
+
+                                    <Grid Margin="0,15,0,0" Padding="20">
+                                        <Button x:Name="removeButton" Background="Red" Margin="0,0,100,0" HorizontalAlignment="Center" Content="Remove" Click="removeButton_Click" />
+                                        <Button x:Name="SaveButton" Background="#FF2B55E2" Margin="0,0,-100,0" HorizontalAlignment="Center" Content="Save" Tapped="SaveButton_Tapped" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                </ScrollViewer>
+
+                
+                <!--Employee detail slideout -->
+        
+        
+    </Grid>
+</Page>

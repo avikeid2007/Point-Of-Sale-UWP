@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="POS.Models.CustomerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                                   BackgroundSource="HostBackdrop"
+                                   TintColor="Black"
+                                   TintOpacity="0.50"
+                                   FallbackColor="#FF1F1F1F" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                                   BackgroundSource="HostBackdrop"
+                                   TintColor="White"
+                                   TintOpacity="0.40"
+                                   FallbackColor="#FF939393" />
+                </ResourceDictionary>
+
+
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <Grid Background="{ThemeResource MyAcrylicBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="8"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle x:Name="rectangleBackground" Fill="#FF464646" Grid.RowSpan="4" Grid.ColumnSpan="2"/> 
+        <StackPanel Grid.Row="1" Grid.Column="1" >
+            <TextBlock x:Name="first" Text="Full" FontSize="18"/>
+            <TextBlock Text="Spouse:" FontSize="18"/>
+            <TextBlock x:Name="spouce"  Text="spouse" FontSize="18"/>
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="1" Grid.RowSpan="2">
+            <TextBlock Text="Home:" FontSize="18"/>
+            <TextBlock x:Name="home" Text="Home:" FontSize="18"/>
+            <TextBlock Text="Cell:" FontSize="18"/>
+            <TextBlock x:Name="cell" Text="Home:" FontSize="18"/>
+            <TextBlock Text="Work:" FontSize="18"/>
+            <TextBlock x:Name="work" Text="Home:" FontSize="18"/>
+            <TextBlock Text="Email:" FontSize="18"/>
+            <TextBlock x:Name="email" Text="Home:" FontSize="18"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" x:Name="addressStack">
+            <TextBlock Text="Address:" FontSize="18"/>
+            <TextBlock x:Name="add1" Text="Add1" FontSize="18"/>
+            <TextBlock x:Name="add2"  Text="Add2" FontSize="18"/>
+            <TextBlock x:Name="city" Text="City" FontSize="18"/>
+            <TextBlock x:Name="state" Text="State" FontSize="18"/>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

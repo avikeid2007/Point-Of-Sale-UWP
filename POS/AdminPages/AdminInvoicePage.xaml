@@ -1,0 +1,412 @@
+﻿<Page
+    x:Class="POS.AdminInvoicePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d" Loading="Page_Loading">
+
+    <Grid Background="Transparent">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="308"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid  x:Name="invoice" Width="255" HorizontalAlignment="Stretch"  >
+                    <Grid Background="White" x:Name="innerInvoiceGrid"  Padding="4" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            
+
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"  />
+                            <ColumnDefinition Width="*" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Business Name" HorizontalAlignment="Left" Grid.ColumnSpan="2" FontWeight="Bold" FontSize="12" Foreground="Black" />
+                        <TextBlock Text="Invoice ##"  HorizontalAlignment="Center" Grid.ColumnSpan="4"  Margin="100,0,0,0" FontSize="12" Foreground="Black" />
+
+                        <Grid x:Name="logo" VerticalAlignment="Top" Grid.Row="1"  HorizontalAlignment="Left" Height="40">
+                            <Ellipse Height="40" Width="40" Fill="Black" />
+                            <TextBlock Text="LOGO" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                        </Grid>
+                        <!--business stack-->
+                        <StackPanel Grid.Column="1" Margin="3,0,0,0" Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel x:Name="businessHeader" Padding="0,0,5,0">
+                                <TextBlock Foreground="Black" Text="Website:" FontSize="6" />
+                                <TextBlock Foreground="Black" Text="Phone:" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Fax:" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Email:" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Address:" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="1">
+                                <TextBlock Foreground="Black" Text="www.YourBusiness.com" FontSize="6" />
+                                <TextBlock Foreground="Black" Text="855-555-5554" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="855-555-5553" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="yourBusiness@mail.com" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="300 Smith st. " FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Jones Town, NY 10980" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="ticketTimeStack"  Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="inDateTitle" Text="Indate:" FontSize="6"  Foreground="Black"/>
+                                <StackPanel Margin="30,0,0,0">
+                                    <TextBlock x:Name="inDate" Text="10/22/2020" FontSize="6" Foreground="Black" />
+                                    <TextBlock  x:Name="inTime" Text="12:30:12 PM" FontSize="6" Foreground="Black"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="readyDateTitle" Text="Ready Date:" FontSize="6" Margin="25,0,0,0" Foreground="Black"/>
+                                <StackPanel Margin="17,0,0,0">
+                                    <TextBlock x:Name="readyDate" Text="10/23/2020" FontSize="6" Foreground="Black" />
+                                    <TextBlock  x:Name="readyTime" Text="03:30 PM" FontSize="6" Foreground="Black"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <!--Customer stack-->
+                        <StackPanel x:Name="custStack" Grid.Column="2" Padding="4,0,0,0" Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel  x:Name="customerHeader" Padding="0,0,5,0">
+                                <TextBlock Foreground="Black" Text="Customer:" FontSize="6" x:Name="custNameHeader" />
+                                <TextBlock Foreground="Black" Text="Company:" FontSize="6" x:Name="custCompanyHeader" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Phone:" x:Name="custPhoneHeader1" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="White" Text="84" x:Name="custPhoneHeader2" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="White" Text="84" x:Name="custPhoneHeader3" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="Email:" x:Name="custEmailHeader" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Grid.Row="1">
+                                <TextBlock Foreground="Black" Text="John Doe" FontSize="6"  x:Name="custName" />
+                                <TextBlock Foreground="Black" Text="Work Place" x:Name="custCompany" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="845-555-5553" x:Name="custPhone1" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="845-555-5554" x:Name="custPhone2" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="845-555-5555" x:Name="custPhone3" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock Foreground="Black" Text="email@mail.com" x:Name="custEmail" FontSize="6" Grid.Column="1" Grid.Row="1"/>
+
+
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        <Grid x:Name="contentHeader" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0.333,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width=".5" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height=".5"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height=".5"/>
+                            </Grid.RowDefinitions>
+                            <Grid Background="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10"  />
+
+                            <TextBlock Text="Item" Grid.Row="1" Grid.Column="1" Foreground="Black" HorizontalAlignment="Center" FontSize ="8"/>
+                            <Grid Background="Black" Grid.Row="1" Grid.Column="2"   />
+                            <TextBlock Text="Quantity" Grid.Row="1" Grid.Column="5" Foreground="Black" HorizontalAlignment="Center" FontSize ="8"/>
+                            <TextBlock Text="Taxed" Grid.Row="1" Grid.Column="3" Foreground="Black" HorizontalAlignment="Center" FontSize ="8"/>
+
+                            <Grid Background="Black" Grid.Row="1" Grid.Column="4"   />
+                            <TextBlock Text="Price" Grid.Row="1" Grid.Column="7" Foreground="Black" HorizontalAlignment="Center" FontSize ="8"/>
+                            <Rectangle Fill="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10"  />
+                            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="0" />
+                            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="4" />
+                            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="6" />
+                            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="8" />
+                        </Grid>
+                        <Grid x:Name="content" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width=".5" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width=".5" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions >
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height=".5"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel x:Name="shadeStackPanel" Grid.ColumnSpan="7" Grid.Column="1">
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+                                <Rectangle Fill="LightGray"  Height="10"  />
+                                <Rectangle Fill="Transparent"  Height="10"  />
+
+                            </StackPanel>
+
+                            <Grid Background="Black" Grid.Row="0" Grid.Column="2"  Grid.RowSpan="2" />
+
+                            <Grid Background="Black" Grid.Row="0" Grid.Column="4" Grid.RowSpan="2"  />
+
+                            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="0" />
+                            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="6" />
+                            <Grid Background="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="38" />
+                            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="8" />
+                            <Rectangle Fill="Black" x:Name="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10"/>
+                        </Grid>
+                        <!-- Payments-->
+                            <Grid x:Name="payments" Grid.Row="6" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="10"  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".5" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width=".5" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width=".5" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width=".5" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width=".5" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height=".5"/>
+                                </Grid.RowDefinitions>
+                                <Grid Background="Black" Grid.Column="4"/>
+                                <Grid Background="Black" Grid.Column="8"/>
+                                
+                                <Grid Grid.Column="5" Grid.ColumnSpan="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height=".5"/>
+                                </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Total:" Grid.Row="1"  Foreground="Black" FontSize="6"/>
+                                    <TextBlock Text="Tax:" Foreground="Black" FontSize="6"/>
+                                    <TextBlock Text="Amount Due:" x:Name="amountDueTitle" Foreground="Black" FontSize="6" Grid.Row="3" HorizontalAlignment="Left"/>
+                                <TextBlock x:Name="paymentTitle" Text="Payments:" Grid.Row="2" Foreground="Black" FontSize="6"/>
+
+                                <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="paymentList" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Credit" FontSize="6" Grid.Column="0" Foreground="Black" Grid.ColumnSpan="6" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="$67.54" FontSize="6" Grid.Column="2" HorizontalAlignment="Center" Foreground="Black"/>
+
+                                </Grid>
+                                <TextBlock x:Name="ticketTotal" Grid.Column="1" Grid.Row="1" Text="$67.54" Foreground="Black" FontSize="6" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="ticketTax" Grid.Column="1"  Text="$5.60" Foreground="Black" FontSize="6" HorizontalAlignment="Center"/>
+
+                                    <TextBlock x:Name="ticketAmountDue" Grid.Column="1" Grid.Row="3" Text="$0.00" Foreground="Black" FontSize="6" HorizontalAlignment="Center"/>
+
+
+                                <Grid Background="Black" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"/>
+
+                            </Grid>
+
+
+                            </Grid>
+
+
+
+
+                        
+                        
+                    </Grid>
+                    
+                </Grid>
+
+                <Grid Canvas.ZIndex="-1">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity=".5"/>
+                    </Grid.Background>
+                </Grid>
+                <TextBlock Text="Customize Invoive:" FontSize="20" Grid.Row="1"/>
+                <ListView SelectionMode="None" Grid.Row="2" ScrollViewer.VerticalScrollMode="Disabled">
+
+
+                        <ListViewItem>
+                            <ToggleSwitch x:Name="showLogo" Header="Show Logo" OnContent="Shown" OffContent="Hidden"   Toggled="showLogo_Toggled"  />
+                        </ListViewItem>
+                        <ListViewItem>
+                            <ToggleSwitch x:Name="shadeItems"  Header="Shade every other item" OnContent="Shaded" OffContent="All White"   Toggled="shadeItems_Toggled"  />
+                        </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="showBusHeader"  Header="Show business info headers" OnContent="Shown" OffContent="Hidden"   Toggled="showBusHeader_Toggled"  />
+                            <ToggleSwitch x:Name="showCustHeader"  Header="Show customer info headers" OnContent="Shown" OffContent="Hidden"   Toggled="showCustHeader_Toggled"  />
+
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="showInputData"  Header="Show input date" OnContent="Shown" OffContent="Hidden"   Toggled="showInputData_Toggled"  />
+                            <ToggleSwitch x:Name="showInputTime"  Header="Show input Time" OnContent="Shown" OffContent="Hidden"   Toggled="showInputTime_Toggled"  />
+
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="showReadyData"  Header="Show ready date" OnContent="Shown" OffContent="Hidden"   Toggled="showReadyData_Toggled"  />
+                            <ToggleSwitch x:Name="showReadyTime"  Header="Show ready time" OnContent="Shown" OffContent="Hidden"   Toggled="showReadyTime_Toggled"  />
+
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="showCustomerName"  Header="Show customer name" OnContent="Shown" OffContent="Hidden"   Toggled="showCustomerName_Toggled"  />
+                            <ToggleSwitch x:Name="showCustCompany"  Header="Show customer's company" OnContent="Shown" OffContent="Hidden"   Toggled="showCustCompany_Toggled"  />
+                            <ToggleSwitch x:Name="showCustPhone"  Header="Show customer phone numbers" OnContent="Shown" OffContent="Hidden"   Toggled="showCustPhone_Toggled"  />
+                            <ToggleSwitch x:Name="showCustEmail"  Header="Show customer email" OnContent="Shown" OffContent="Hidden"   Toggled="showCustEmail_Toggled"  />
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <StackPanel>
+                            <ToggleSwitch x:Name="showPayments"  Header="Show payments" OnContent="Shown" OffContent="Hidden"   Toggled="showPayments_Toggled"  />
+                            <ToggleSwitch x:Name="showAmountDue"  Header="Show amount due" OnContent="Shown" OffContent="Hidden"   Toggled="showAmountDue_Toggled"  />
+
+                        </StackPanel>
+                    </ListViewItem>
+
+
+                    <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:WrapPanel Background="Transparent"
+                                                VerticalSpacing="5"
+                                                HorizontalSpacing="5"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+
+                    </ListView>
+
+                <TextBlock Text="Email Setings:" FontSize="20" Grid.Row="3"/>
+
+                <ListView SelectionMode="None" Grid.Row="4" ScrollViewer.VerticalScrollMode="Disabled">
+
+                    <ListViewItem>
+
+                        <Grid  Grid.Column="1" Width="450">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+
+                            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="10" Grid.Row="0">
+                                <TextBlock x:Name="insightEmail" Text="&#xE946;" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" Tapped="insightEmail_Tapped" >
+                            <FlyoutBase.AttachedFlyout > 
+                                <Flyout >
+                                    <Grid Width="200">
+                                        <TextBlock TextWrapping="WrapWholeWords" Text="If no customer name is on file, valued customer will take its place. All messages can be customized in the Mail app."/>
+                                    </Grid>
+
+                                </Flyout>
+                            </FlyoutBase.AttachedFlyout>
+                        </TextBlock>
+                                <TextBlock  Text="Email Invoice Template:" FontSize="18" Grid.ColumnSpan="10" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBox x:Name="subjectBox" Grid.Row="1" PlaceholderText="Enter the email's subject."/>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="10">
+                                <TextBlock Text="Dear" VerticalAlignment="Center" />
+                                <ComboBox HorizontalAlignment="Center" Margin="5,0,0,2" SelectedIndex="0" x:Name="receiverCombo" >
+                                    <ComboBoxItem Content="Customer's Name"/>
+                                    <ComboBoxItem Content="Valued Customer"/>
+                                </ComboBox>
+                                <TextBlock Text="," VerticalAlignment="Bottom" />
+                            </StackPanel>
+                            <TextBox x:Name="messageText" Grid.Row="3" TextWrapping="Wrap" Grid.ColumnSpan="10" Margin="0,0,30,0"  PlaceholderText="Enter the body of the message." Text="Thank you for your business! I have attached your invoice to this email. If you have any questions or concerns, feel free to send a response."/>
+
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" Grid.ColumnSpan="10">
+                                <ComboBox x:Name="senderClosingCombo" SelectedIndex="0" >
+                                    <ComboBoxItem Content="Sincerely"/>
+                                    <ComboBoxItem Content="Yours truly"/>
+                                    <ComboBoxItem Content="Best"/>
+                                    <ComboBoxItem Content="All the best"/>
+                                    <ComboBoxItem Content="Hope to hear from you soon"/>
+                                    <ComboBoxItem Content="Kind Regards"/>
+                                    <ComboBoxItem Content="Take care"/>
+                                    <ComboBoxItem Content="Show me the money"/>
+                                </ComboBox>
+                                <TextBlock Text="," VerticalAlignment="Bottom"/>
+                                <ToggleSwitch x:Name="closingToggle" OnContent="Show Closing" OffContent="Hide Closing"/>
+                            </StackPanel>
+                            <TextBox x:Name="senderName" Grid.Row="5" PlaceholderText="Enter a sender name."/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Grid.Row="6" Grid.ColumnSpan="4">
+                                <Button Content="Save" x:Name="saveEmail" Tapped="saveEmail_Tapped"/>
+                            </StackPanel>
+
+                        </Grid>
+
+
+                    </ListViewItem>
+
+                    <ListViewItem>
+                        <ToggleSwitch Header="Send multiple pages in a zip or mulitple attachments?" OnContent="Zip" OffContent="Multiple Attachments"  IsOn ="True"  />
+                    </ListViewItem>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <controls:WrapPanel Background="Transparent"
+                                                VerticalSpacing="5"
+                                                HorizontalSpacing="5"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+
+                </ListView>
+
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

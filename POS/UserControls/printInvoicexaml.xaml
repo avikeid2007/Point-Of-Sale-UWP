@@ -1,0 +1,493 @@
+﻿<Page
+    x:Class="POS.printInvoicexaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:data="using:POS.Models"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loading="Page_Loading"  >
+    <Page.Resources>
+        <!--Current Ticket ListView -->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketDataTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind name}"  Margin="5,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Grid.Column="0" FontSize ="30"  VerticalAlignment="Center" Width="Auto" Foreground="Black" />
+                <TextBlock Text="{x:Bind taxID}" Grid.Column="2" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="Auto"  FontSize ="30" Margin="0,0,10,0" Foreground="Black" />
+                <TextBlock Text="{x:Bind minQuantity}" Grid.Column="4" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="Auto"  FontSize ="30" Margin="0,0,10,0" Foreground="Black" />
+                <TextBlock Text="{x:Bind price}"        HorizontalAlignment="Right"   Grid.Column="6" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" Foreground="Black" />
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Discount ListView -->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketDiscountDataTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Bind discount}"        HorizontalAlignment="Right" Foreground="Black" Grid.Row="1"  Grid.Column="2" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" />
+
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Modifiers-->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketModDataTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Bind name}" Margin="60,0,0,0" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" Width="Auto"  FontSize ="30" />
+
+                <TextBlock Text="{x:Bind price}" HorizontalAlignment="Right" Foreground="Black" Grid.Column="2" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" />
+                <Grid Grid.Row="1" Grid.ColumnSpan="8" Canvas.ZIndex="-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="6"  Fill="Transparent"/>
+
+                    
+                  
+
+                </Grid>
+
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Modifiers Discount-->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketModDiscountDataTemplate" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind price}"        HorizontalAlignment="Right"   Grid.Column="6" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" Foreground="Black" />
+            </Grid>
+        </DataTemplate>
+
+
+
+        <!--Current Ticket Background ListView -->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketBackgroundDataTemplate" >
+            <Grid Background="LightGray" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="{x:Bind name}"  Margin="5,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Left" Grid.Column="0" FontSize ="30"  VerticalAlignment="Center" Width="Auto" Foreground="Black" />
+                <TextBlock Text="{x:Bind taxID}" Grid.Column="2" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="Auto"  FontSize ="30" Margin="0,0,10,0" Foreground="Black" />
+                <TextBlock Text="{x:Bind minQuantity}" Grid.Column="4" HorizontalAlignment="Center"   VerticalAlignment="Center" Width="Auto"  FontSize ="30" Margin="0,0,10,0" Foreground="Black" />
+                <TextBlock Text="{x:Bind price}"        HorizontalAlignment="Right"   Grid.Column="6" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" Foreground="Black" />
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Discount Background ListView -->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketDiscountBackgroundDataTemplate" >
+            <Grid Background="LightGray" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{x:Bind discount}"        HorizontalAlignment="Right" Foreground="Black" Grid.Row="1"  Grid.Column="2" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" />
+
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Modifiers Background-->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketModBackgroundDataTemplate" >
+            <Grid Background="LightGray" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Bind name}" Margin="60,0,0,0" Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Center" Width="Auto"  FontSize ="30" />
+
+                <TextBlock Text="{x:Bind price}" HorizontalAlignment="Right" Foreground="Black" Grid.Column="2" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" />
+                <Grid Grid.Row="1" Grid.ColumnSpan="8" Canvas.ZIndex="-1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="6"  Fill="Transparent"/>
+
+
+
+
+                </Grid>
+
+            </Grid>
+        </DataTemplate>
+        <!--Current Ticket Modifiers Discount Background-->
+        <DataTemplate x:DataType="data:Item" x:Key="CurrentTicketModDiscountBackgroundDataTemplate" >
+            <Grid Background="LightGray" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind price}"        HorizontalAlignment="Right"   Grid.Column="6" VerticalAlignment="Center" Width="Auto" Margin="0,0,10,0"  FontSize ="30" Foreground="Black" />
+            </Grid>
+        </DataTemplate>
+
+        <!--Amount Payment ListView -->
+        <DataTemplate x:DataType="data:Payments" x:Key="payAmountListTemplate" >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{x:Bind amount}"  Foreground="Black" FontSize="30" Grid.Column="1"  HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+        <!--Type Payment ListView -->
+        <DataTemplate x:DataType="data:Payments" x:Key="payTypeListTemplate" >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind type}" Margin="200,0,0,0" Foreground="Black" FontSize="30"  Grid.Column="0" HorizontalAlignment="Left"/>
+            </Grid>
+        </DataTemplate>
+
+    </Page.Resources>
+    
+    <Grid x:Name="gridPage" Background="White" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="60"/>
+
+        </Grid.RowDefinitions>
+        <Grid x:Name="header" Grid.Column="1" Grid.Row="1" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MaxWidth="350"/>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"  MaxHeight="130"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="businessName" Grid.Column="0" Foreground="Black" FontWeight="Bold" FontSize="55" Grid.ColumnSpan="2"/>
+            <Image x:Name="ImageViewer" 
+                   MaxWidth="350" 
+                   MaxHeight="350"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"  Grid.Row="1" Grid.Column="0"/>
+        
+        <Grid x:Name="businessInfo" Grid.Column="1" Grid.Row="1" Padding="3,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" MinWidth="135"  x:Name="allBusHeader"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="websiteBusHeader" Text="Website:" Grid.Row="0" Foreground="Black" FontSize ="30" TextWrapping="Wrap"/>
+                <TextBlock x:Name="phoneBusHeader" Text="Phone:" Grid.Row="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="faxBusHeader"  Text="Fax:" Grid.Row="2" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="emailBusHeader" Text="Email:" Grid.Row="3" Foreground="Black" FontSize ="30" TextWrapping="Wrap" />
+                <TextBlock x:Name="addressBusHeader" Text="Address:" Grid.Row="4" Foreground="Black" FontSize ="30"/>
+
+
+
+                <TextBlock  x:Name="busWeb" Grid.Row="0" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock  x:Name="busPhoneNumber" Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="busFax" Grid.Row="2" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock  x:Name="busEmail" Grid.Column="1" Grid.Row="3" Foreground="Black" FontSize ="30"/>
+                <StackPanel x:Name="busAddress" Grid.Row="4"  Grid.Column="1">
+
+                </StackPanel>
+            
+            </Grid>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <TextBlock Text="Invoice"  Foreground="Black"  FontSize="45" Grid.ColumnSpan="2"/>
+                <TextBlock x:Name="ticketID" Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Foreground="Black" FontSize ="45"/>
+            </StackPanel>
+           
+
+            <Grid x:Name="customerInfo" Grid.Column="3" Grid.Row="1" Padding="4,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="allCustHeader" Width="4*" MinWidth="130"/>
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="custNameHeader" Text="Customer:" Grid.Row="0" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="custCompanyHeader" Text="Company:" Grid.Row="1" FontSize="30" Foreground="Black"/>
+                <TextBlock x:Name="custPhoneHeader" Text="Phone:" Grid.Row="2" Foreground="Black" FontSize ="30"/>
+                
+                <TextBlock x:Name="custEmailHeader" Text="Email:" Grid.Row="3" Foreground="Black" FontSize ="30"/>
+
+
+
+
+                <TextBlock x:Name="custName" TextWrapping="WrapWholeWords" Grid.Row="0" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="custCompany" TextWrapping="WrapWholeWords" Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <StackPanel x:Name="phoneStack" Grid.Row="2" Grid.Column="1">
+
+                </StackPanel>
+                
+
+                <TextBlock x:Name="custEmail"   Grid.Row="3" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                
+
+            </Grid>
+
+
+        </Grid>
+
+        <Grid x:Name="invoiceInfo" Grid.Column="1" Grid.Row="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="inputDateHeader" Text="Intake Date:" Grid.Row="1" Foreground="Black" FontSize ="30"/>
+            <TextBlock x:Name="readyDateHeader" Text="Ready Date:" Grid.Row="1" Grid.Column="2" Foreground="Black" FontSize ="30"/>
+
+
+            <StackPanel  Grid.Column="1" Grid.Row="1">
+                <TextBlock x:Name="inputDate"  Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="inputTime" Grid.Row="2" Grid.Column="1" Foreground="Black" FontSize ="30"/>
+            </StackPanel>
+            <StackPanel  x:Name="readyDateStackPanel" Grid.Column="3" Grid.Row="1">
+                <TextBlock x:Name="readyDate" Grid.Row="1" Grid.Column="3" Foreground="Black" FontSize ="30"/>
+                <TextBlock x:Name="readyTime" Grid.Row="1" Grid.Column="3" Foreground="Black" FontSize ="30"/>
+
+            </StackPanel>
+
+
+        </Grid>
+        <Grid x:Name="contentHeader" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+            <Grid Background="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10"  />
+
+            <TextBlock Text="Item" Grid.Row="1" Grid.Column="1" Foreground="Black" HorizontalAlignment="Center" FontSize ="30"/>
+            <Grid Background="Black" Grid.Row="1" Grid.Column="2"   />
+            <TextBlock Text="Quantity" Grid.Row="1" Grid.Column="5" Foreground="Black" HorizontalAlignment="Center" FontSize ="30"/>
+            <TextBlock Text="Taxed" Grid.Row="1" Grid.Column="3" Foreground="Black" HorizontalAlignment="Center" FontSize ="30"/>
+
+            <Grid Background="Black" Grid.Row="1" Grid.Column="4"   />
+            <TextBlock Text="Price" Grid.Row="1" Grid.Column="7" Foreground="Black" HorizontalAlignment="Center" FontSize ="30"/>
+            <Rectangle Fill="Black" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="10"  />
+            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="0" />
+            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="4" />
+            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="6" />
+            <Rectangle Fill="Black" Grid.RowSpan="10" Grid.Column="8" />
+        </Grid>
+        <Grid x:Name="content" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions >
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView  x:Name="invoiceList" ItemTemplate="{StaticResource CurrentTicketDataTemplate}" Grid.Column="1" Foreground="Black" RequestedTheme="Light" Grid.ColumnSpan="10" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="MinHeight" Value="20" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemContainerTransitions>
+                    <TransitionCollection/>
+                </ListView.ItemContainerTransitions>
+            </ListView>
+
+            <Grid Background="Black" Grid.Row="0" Grid.Column="2"  Grid.RowSpan="2" />
+
+            <Grid Background="Black" Grid.Row="0" Grid.Column="4" Grid.RowSpan="2"  />
+
+            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="0" />
+            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="6" />
+            <Grid Background="Black" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="38" />
+            <Grid Background="Black" Grid.RowSpan="2" Grid.Column="8" />
+            <Rectangle Fill="Black" x:Name="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="10"/>
+            
+            <!-- Payments-->
+            <Grid x:Name="payments" Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="10"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="2"/>
+                </Grid.RowDefinitions>
+                <Grid Background="Black" Grid.Column="4"/>
+                <Grid Background="Black" Grid.Column="8"/>
+                <Grid Grid.Column="5" Grid.ColumnSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Total:" Grid.Row="1"  Foreground="Black" FontSize="30"/>
+                    <TextBlock Text="Tax:" Foreground="Black" FontSize="30"/>
+                    <TextBlock x:Name="amountDueHeader" Text="Amount Due:" Foreground="Black" FontSize="30" Grid.Row="3" HorizontalAlignment="Left"/>
+
+
+                    <TextBlock x:Name="ticketTotal" Grid.Column="1" Grid.Row="1" Text="Total" Foreground="Black" FontSize="30" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="ticketTax" Grid.Column="1"  Text="tax" Foreground="Black" FontSize="30" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="paymentTitle" Text="Payments:" Grid.Row="2" Foreground="Black" FontSize="30"/>
+                    <ListView x:Name="payListView" ItemsSource="{x:Bind InvoicePayments}" ItemTemplate="{StaticResource payTypeListTemplate}"  Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="MinHeight" Value="20" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection/>
+                        </ListView.ItemContainerTransitions>
+                    </ListView>
+                    <ListView x:Name="payTypeListView" ItemsSource="{x:Bind InvoicePayments}" ItemTemplate="{StaticResource payAmountListTemplate}"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Margin" Value="0"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="MinHeight" Value="20" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection/>
+                        </ListView.ItemContainerTransitions>
+                    </ListView>
+                    <TextBlock x:Name="ticketAmountDue" Grid.Column="1" Grid.Row="3" Text="Amount Due" Foreground="Black" FontSize="30" HorizontalAlignment="Center"/>
+
+                </Grid>
+
+                <Grid Background="Black" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="10"/>
+
+
+
+            </Grid>
+            <TextBlock x:Name="pageCount" Grid.Row="2"  VerticalAlignment="Bottom" Grid.Column="1" FontSize="30" Foreground="Black" />
+
+        </Grid>
+
+        <Grid Grid.Row="6" Background="White" />
+    </Grid>
+</Page>

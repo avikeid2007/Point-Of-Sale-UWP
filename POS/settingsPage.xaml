@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="POS.settingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loading="Page_Loading">
+
+    <Grid Background="Transparent">
+        <StackPanel>
+            <TextBlock Text="Theme Setting:" FontSize="20" />
+            <StackPanel>
+                <RadioButton Content="Light" x:Name="light" Tapped="light_Tapped"/>
+                <RadioButton Content="Dark" x:Name="dark" Tapped="dark_Tapped"/>
+                <RadioButton Content="Use System Setting" x:Name="System" Tapped="System_Tapped"/>
+            </StackPanel>
+            <TextBlock x:Name="themeMessage" Visibility="Collapsed" Text="Some changes won't take place until next restart of the app." />
+            <Button x:Name="fullscreen" Content="Full Screen" Tapped="fullscreen_Tapped"/>
+            <Button x:Name="trans" Content="Toggle Transparency" VerticalAlignment="Top" Tapped="trans_Tapped"/>
+        </StackPanel>
+
+    </Grid>
+</Page>

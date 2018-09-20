@@ -1,0 +1,407 @@
+<Page
+    x:Class="POS.TimeStampPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:data="using:POS.Models"
+    mc:Ignorable="d"  Loading="Page_Loading">
+
+    <Page.Resources>
+        <DataTemplate x:DataType="data:Employee" x:Key="EmployeeListDataTemplate" >
+           
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="{x:Bind fullname}" HorizontalAlignment="Left" FontSize="19" />
+            </StackPanel>
+            
+        </DataTemplate>
+
+            <DataTemplate x:DataType="data:TimeStamp" x:Key="TypeDataTemplate" >
+                
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{x:Bind type}" Grid.Column="0" />
+                    <TextBlock Text="{x:Bind date}" Grid.Column="1"/>
+                <TextBlock Text="{x:Bind time}" Grid.Column="2" Margin="4,0,0,0"/>
+                    <TextBlock Text="{x:Bind shiftTime}" Grid.Column="3" Margin="15,0,0,0"/>
+                </Grid>
+
+
+            
+            </DataTemplate>
+        <DataTemplate x:DataType="data:TimeStamp" x:Key="TypeDataTemplateBlack" >
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{x:Bind type}" Grid.Column="0" Foreground="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind date}" Grid.Column="1" Foreground="Black"  HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind time}" Grid.Column="2" Margin="4,0,0,0" Foreground="Black"  HorizontalAlignment="Center"/>
+                <TextBlock Text="{x:Bind shiftTime}" Grid.Column="3" Margin="15,0,0,0" Foreground="Black"  HorizontalAlignment="Center"/>
+            </Grid>
+
+
+
+        </DataTemplate>
+        <DataTemplate x:DataType="data:TimeStamp" x:Key="TypeDataExpandedTemplate" >
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{x:Bind type}" Grid.Column="0" />
+                <TextBlock Text="{x:Bind date}" Grid.Column="1"/>
+                <TextBlock Text="{x:Bind time}" Grid.Column="2" Margin="4,0,0,0"/>
+                <TextBlock Text="{x:Bind shiftTime}" Grid.Column="3" Margin="15,0,0,0"/>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button x:Name="editPunch" Content="Edit" Tapped="editPunch_Tapped"/>
+                    <Button x:Name="deltePunch" Content="Delete" Margin="15,0,0,0" Tapped="deltePunch_Tapped"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </DataTemplate>
+
+
+
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Edit Punch Menu -->
+        <Popup VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="4" Grid.ColumnSpan="3" x:Name="editPunchPopUp" IsLightDismissEnabled="True" Width="500" Height="280">
+
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PopupThemeTransition FromHorizontalOffset="0" FromVerticalOffset="200"></PopupThemeTransition>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <StackPanel Background="Transparent" Padding="12">
+                <Grid>
+                    <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
+                        <TextBlock Text="Edit Timestamp" FontSize="16" Margin="0,0,0,4"/>
+                        <Grid Height="Auto">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <!-- Items in popup-->
+                            
+                                <TextBlock x:Name="employeeName" Grid.Row="0" Text="Employee Name" FontSize="20"/>
+                                <TextBlock x:Name="punchType" Grid.Row="1" Text="Punch Type" FontSize="20"/>
+                                <TextBlock x:Name="punchtTime" Grid.Row="2" Text="Punch Time" FontSize="20"/>
+                                <TextBlock x:Name="Date" Grid.Row="3" Text="Punch Date" FontSize="20"/>
+
+
+
+
+                            <ComboBox x:Name="editPunchType"  Grid.Row="1" Grid.Column="2">
+                                    <ComboBoxItem>
+                                        <TextBlock Text="In"/>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <TextBlock Text="Out"/>
+                                    </ComboBoxItem>
+                                </ComboBox>
+
+                            <TimePicker  x:Name="editPunchTime" Grid.Row="2" Grid.Column="2"/>
+                            <DatePicker x:Name="editeDatePicker" Grid.Column="2"   Grid.Row="3"  />
+                        
+                            <Button x:Name="saveEditPunch" Padding="5" Content="Save Changes" Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Right" Tapped="saveEditPunch_Tapped"/>
+                            <!-- Items in popup-->
+
+                        </Grid>
+                    </StackPanel>
+                    <Grid x:Name="editPunchColor" Canvas.ZIndex="-1">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:Blur  Value="25"/>
+                        </interactivity:Interaction.Behaviors>
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        </Grid.Background>
+                    </Grid>
+
+                </Grid>
+            </StackPanel>
+        </Popup>
+        <!--Edit Punch click Menu -->
+
+        <!--Add Punch Menu -->
+        <Popup VerticalAlignment="Center" Grid.RowSpan="5" HorizontalAlignment="Center" x:Name="addPunchPopup" IsLightDismissEnabled="True" Width="300" Height="280">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PopupThemeTransition FromHorizontalOffset="0" FromVerticalOffset="200"></PopupThemeTransition>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid>
+                <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Add Timestamp" FontSize="16" Margin="0,0,0,4"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Items Out popup-->
+                        <StackPanel>
+                        <ComboBox x:Name="employeeComboBox" Margin="0,0,0,7" PlaceholderText="Employee" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="200"   ItemsSource="{x:Bind EmployeeList}" ItemTemplate="{StaticResource EmployeeListDataTemplate}" />
+                        <ComboBox x:Name="addPunchType" PlaceholderText="Punch Type" Grid.Row="1" >
+                            <ComboBoxItem>
+                                <TextBlock Text="In"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <TextBlock Text="Out"/>
+                            </ComboBoxItem>
+                        </ComboBox>
+
+                        <TimePicker  x:Name="addPunchTime" Header="Time:" Grid.Row="2"/>
+                        <DatePicker x:Name="addDatePicker" Header="Date:"  Grid.Row="3"  />
+                            <Button Content="Add Timestamp" x:Name="addTimestamp" HorizontalAlignment="Right"  Margin="0,8,0,0" Padding="4" Tapped="addTimestamp_Tapped" />
+                        </StackPanel>
+                        <!-- Items Out popup-->
+                    </Grid>
+
+
+                </StackPanel>
+                <Grid x:Name="addPunchColor" Canvas.ZIndex="-1">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:Blur  Value="25"/>
+                    </interactivity:Interaction.Behaviors>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+
+        </Popup>
+        <!--Add Punch Menu -->
+
+        <Button x:Name="printButton" Content="&#xE2F6;" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" FontSize="30" Margin="0,0,5,0" Click="printButton_Click" />
+        <StackPanel  Orientation="Horizontal" Grid.ColumnSpan="2"  Margin="0,10,0,10">
+            <TextBlock Text="From:" FontSize="20" Margin="12,0,5,0"/>
+            <DatePicker x:Name="startDatePicker" DateChanged="startDatePicker_DateChanged" />
+            <TextBlock Text="To:" FontSize="20" Margin="12,0,5,0"/>
+            <DatePicker x:Name="endDatePicker" DateChanged="startDatePicker_DateChanged"/>
+        </StackPanel>
+        <Grid x:Name="headerColor" Canvas.ZIndex="-1">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur  Value="25" />
+            </interactivity:Interaction.Behaviors>
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7"/>
+            </Grid.Background>
+        </Grid>
+
+        <Grid  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+
+
+
+            <ListView Grid.Row="0" x:Name="employeeListView" ItemsSource="{x:Bind EmployeeList}" ItemTemplate="{StaticResource EmployeeListDataTemplate}" IsItemClickEnabled="True"  ItemClick="employeeListView_ItemClick" />
+            <Button x:Name="addPunch" Grid.Row="1" Content="Add Timestamp" HorizontalAlignment="Center"  VerticalAlignment="Top"  Margin="0,15,0,15" Tapped="addPunch_Tapped"/>
+
+
+
+            <Grid x:Name="employeeColor" Canvas.ZIndex="-1" Grid.RowSpan="2">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur  Value="25" />
+            </interactivity:Interaction.Behaviors>
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7"/>
+            </Grid.Background>
+        </Grid>
+        
+        <Grid Grid.Column="1" Grid.RowSpan="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            
+            <TextBlock Text="Punch Type" Grid.Row="1" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="Date" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="Time" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontSize="20"/>
+            <TextBlock Text="Shift Time" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" FontSize="20"/>
+
+
+                <ScrollViewer Grid.Row="2" Grid.ColumnSpan="4">
+
+                    <ListView x:Name="typeListView"  Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{x:Bind TimeStamps}" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.IsVerticalRailEnabled="False" ItemTemplate="{StaticResource TypeDataTemplate}" IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="typeListView_SelectionChanged" ItemClick="typeListView_ItemClick" >
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                        </ListView>
+                    </ScrollViewer>
+                
+
+
+
+
+                <!--Background blur and border -->
+            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" BorderThickness="4,0,4,0" BorderBrush="Black" Canvas.ZIndex="-1">
+                <Grid x:Name="grid1"  Grid.RowSpan="3" Grid.ColumnSpan="5"  Canvas.ZIndex="-1" >
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:Blur  Value="25" />
+                    </interactivity:Interaction.Behaviors>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid  Grid.Column="3" Grid.Row="1" Grid.RowSpan="5" BorderThickness="4,0,4,0" BorderBrush="Black" Canvas.ZIndex="-1">
+                    <Grid x:Name="grid2" Grid.RowSpan="3" Grid.ColumnSpan="5"  Canvas.ZIndex="-1">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:Blur  Value="25" />
+                        </interactivity:Interaction.Behaviors>
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        </Grid.Background>
+                    </Grid>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" BorderThickness="4,0,0,0" BorderBrush="Black" Canvas.ZIndex="-1">
+                    <Grid x:Name="grid3" Grid.RowSpan="3" Grid.ColumnSpan="5"  Canvas.ZIndex="-1">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:Blur Value="25"/>
+                    </interactivity:Interaction.Behaviors>
+                    <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.20"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2" Grid.Row="1" Grid.RowSpan="4"  BorderBrush="Black" Canvas.ZIndex="-1">
+                    <Grid  x:Name="grid4" Grid.RowSpan="3" Grid.ColumnSpan="5"  Canvas.ZIndex="-1">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:Blur  Value="25" />
+                        </interactivity:Interaction.Behaviors>
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.20"/>
+                        </Grid.Background>
+                    </Grid>
+            </Grid>
+
+
+            </Grid>
+        </Grid>
+
+        <ScrollViewer x:Name="test2" Canvas.ZIndex="-3" Grid.Column="4"  Grid.RowSpan="10">
+            <Grid x:Name="printMe" Canvas.ZIndex="-3" Grid.Column="4"  Grid.RowSpan="10" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*" x:Name="test1"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="25,20,0,10" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1">
+                    <TextBlock Foreground="Black" Text="Employee: "/>
+                    <TextBlock x:Name="employeeToPrint" Foreground="Black" Margin="5,0,0,0" Text="Martin Nowak"/>
+
+                    <TextBlock Text="From:" Padding="30,0,0,0" Foreground="Black"/>
+                    <TextBlock x:Name="printFromDate" Foreground="Black" Margin="5,0,0,0" />
+                    <TextBlock Text="To:" Padding="30,0,0,0" Foreground="Black"  />
+                    <TextBlock x:Name="printToDate" Foreground="Black" Margin="5,0,0,0" />
+                    <TextBlock Text="Total Time:" Padding="30,0,0,0" Foreground="Black" />
+                    <TextBlock x:Name="printTotalHours" Foreground="Black" Margin="5,0,0,0" />
+                </StackPanel>
+
+
+                <TextBlock Foreground="Black" Text="Punch Type" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" FontSize="19"/>
+                <TextBlock Foreground="Black" Text="Date" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" FontSize="19"/>
+                <TextBlock Foreground="Black" Text="Time" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" FontSize="19"/>
+                <TextBlock Foreground="Black" Text="Shift Time" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center" FontSize="19"/>
+
+
+
+
+                <ListView x:Name="printList" Foreground="Black"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="6" ItemsSource="{x:Bind TimeStampPrintList}"  ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.IsVerticalRailEnabled="False" ItemTemplate="{StaticResource TypeDataTemplateBlack}" IsItemClickEnabled="False" SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="MinHeight" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+
+
+            </Grid>
+        </ScrollViewer>
+
+
+    </Grid>
+</Page>
+

@@ -1,0 +1,96 @@
+﻿<Page NavigationCacheMode="Enabled"
+    x:Class="POS.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loading="Page_Loading">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                                   BackgroundSource="HostBackdrop"
+                                   TintColor="Black"
+                                   TintOpacity="0.50"
+                                   FallbackColor="#FF1F1F1F" />
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <AcrylicBrush x:Key="MyAcrylicBrush"
+                                   BackgroundSource="HostBackdrop"
+                                   TintColor="White"
+                                   TintOpacity="0.40"
+                                   FallbackColor="#FF939393" />
+                </ResourceDictionary>
+
+
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+
+
+
+
+    
+
+        <NavigationView x:FieldModifier="public" Canvas.ZIndex="2" ItemInvoked="Hamberg_Menu_ItemInvoked"  x:Name="Hamberg_Menu" Grid.Row="1" IsPaneOpen="False" AlwaysShowHeader="False" CompactPaneLength="48" OpenPaneLength="225" Background="{ThemeResource MyAcrylicBrush}"  RequestedTheme="Dark">
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Home" Tag="home" >
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE10F;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+
+
+            <NavigationViewItem Content="Tickets" Tag="tickets">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE1A1;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Reports" Tag="reports">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE9F9;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Administration" Tag="admin">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE8A6;"/>
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            
+        </NavigationView.MenuItems>
+
+        <!---<Grid Background="black" Opacity=".7" Canvas.ZIndex="-1"></Grid> -->
+
+
+
+
+
+        <Grid>
+            <Grid Grid.RowSpan="10" Grid.ColumnSpan="10" x:Name="allBackground" x:FieldModifier="public" Canvas.ZIndex="-1">
+
+                <Grid.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.15"/>
+                </Grid.Background>
+            </Grid>
+            <Frame x:FieldModifier="public"  x:Name="selectionFrame" Canvas.ZIndex="1">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+        </Grid>
+                        <!--<Image x:Name="backgroundImage" Source="Assets/Backgrounds/art5.jpg" Grid.Row="1"  Stretch="UniformToFill" HorizontalAlignment="Center" Canvas.ZIndex="-1"/> -->
+          
+                
+        </NavigationView>
+
+
+</Page>

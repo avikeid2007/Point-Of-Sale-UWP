@@ -1,0 +1,75 @@
+﻿<UserControl
+    x:Class="POS.LogInOverlay"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:data="using:POS.Models"
+    mc:Ignorable="d"
+    Loading="UserControl_Loading"
+ >
+
+    <UserControl.Resources>
+        <DataTemplate x:DataType="data:Employee" x:Key="EmployeeListDataTemplate" >
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="{x:Bind fullname}" HorizontalAlignment="Left" FontSize="18" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
+    <Grid>
+
+        <!--Popup LogIn Menu -->
+        <Popup VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="10" HorizontalAlignment="Center" x:Name="logInPopup" IsLightDismissEnabled="False" IsOpen="True" Width="278" Height="210">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PopupThemeTransition FromHorizontalOffset="0" FromVerticalOffset="200"></PopupThemeTransition>
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Grid>
+                <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
+                    <TextBlock Text="Log In" FontSize="16" Margin="0,0,0,4"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!-- Items in popup-->
+                        <ComboBox x:Name="employeeComboBoxIn" PlaceholderText="Employee" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"  FontSize="18" Margin="0,0,0,5"  ItemsSource="{x:Bind Employees}" ItemTemplate="{StaticResource EmployeeListDataTemplate}" />
+                        <PasswordBox x:Name="logInPass" PlaceholderText="Passcode" FontSize="18" Grid.Row="1" />
+                        <TextBlock x:Name="logInStatus" Grid.Row="2"  />
+
+                        <Button x:Name="logInPopupButton" Content="Log In" Height="40" Width="100" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="4" VerticalAlignment="Top" Click="LogInPopupButton_Click"/>
+                        <!-- Items in popup-->
+                    </Grid>
+                </StackPanel>
+                <Grid x:Name="logInColor" Canvas.ZIndex="-1">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:Blur  Value="25"/>
+                    </interactivity:Interaction.Behaviors>
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.7"/>
+                    </Grid.Background>
+                </Grid>
+            </Grid>
+        </Popup>
+
+
+
+        <Rectangle x:Name="logInFilter"   Opacity=".5" Grid.ColumnSpan="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Canvas.ZIndex="500"/>
+
+
+    </Grid>
+</UserControl>

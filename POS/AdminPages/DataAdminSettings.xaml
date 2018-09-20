@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="POS.DataAdminSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Canvas.ZIndex="1" Grid.Column="0">
+            <!-- Data Location-->
+            <TextBlock Text="Data Location:" FontSize="22"  Grid.Column="0"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="dataLocationLink" Height="25" VerticalAlignment="Top" Grid.Column="0"  />
+                <Button x:Name="dataFilePicker" Grid.Column="0" Content= "..."  Click="dataFilePicker_Click" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="32" />
+            </StackPanel>
+            <TextBlock Text="Logo:" FontSize="22"/>
+            <Button x:Name="logoOpen" Content="Pick Logo Image" Tapped="logoOpen_Tapped"/>
+            <Image x:Name="ImageViewer" 
+               Width="200" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" />
+            <Button x:Name="removeLogo" Content="Remove Logo" Tapped="removeLogo_Tapped"/>
+        </StackPanel>
+
+
+    </Grid>
+
+</Page>

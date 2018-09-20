@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="POS.ReportsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:POS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    mc:Ignorable="d" Loading="Page_Loading">
+
+    <Grid Background="Transparent">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="dash" Content="Dashboard" Click="dash_Click" FontSize="20" BorderThickness="0, 0, 0, 5" />
+            <Button x:Name="time" Content="Timestamps" Click="time_Click" FontSize="20" BorderThickness="0, 0, 0, 5" />
+            <Button x:Name="stat" Content="Statistics" FontSize="20" BorderThickness="0, 0, 0, 5"/>
+        </StackPanel>
+        <Grid x:Name="titleBar"  Canvas.ZIndex="-1">
+            <interactivity:Interaction.Behaviors>
+            </interactivity:Interaction.Behaviors>
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.75"/>
+            </Grid.Background>
+        </Grid>
+        <Frame x:FieldModifier="public" x:Name="selectionFrame" Grid.Row="1">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+
+    </Grid>
+</Page>

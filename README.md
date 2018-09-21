@@ -18,7 +18,14 @@ This page is where the employee can create tickets. They can link customers to t
 <img src="POS/Assets/GitReadMe/createTicketPage.png"   />
 After clicking "Finalize Ticket" in the bottom corener, the page shows the layout as in the screenshot below. Here the employee can make payments, set the ready date and time, and give discounts(premature) that apply to the entire purchase. After pressing "Finish" a change dialog comes up to give the customer change if needed. After the employee submits the ticket, the ticket will print.
 <img src="POS/Assets/GitReadMe/finalizeTicket.PNG"   />
-
-
-
+<h2>Printables</h2>
+There is currently 4 printable items in this software. The first image on the left is the invoice. It can be printed on the homepage, the create ticket page, and the ticket look up page. The image on the right is from the ticket look up page. It will print from the search results.
+<div>
+ <img src="POS/Assets/GitReadMe/printInvoice.png" width="435px"  />
+ <img src="POS/Assets/GitReadMe/printTicketLookUp.png" width="435px"  />
+</div>
+The image on the left is the a time sheet printed from the reports page. It has the search critiria at the top with the total amount of time the employee worked.
+<div>
+<img src="POS/Assets/GitReadMe/timesheet.png" width="435px"  />
+</div>
 

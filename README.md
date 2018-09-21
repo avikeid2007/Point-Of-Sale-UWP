@@ -13,3 +13,6 @@ The quick view is a custom element that is used acrosss multiple pages. It is a 
 <br/>
 <img src="POS/Assets/GitReadMe/homeQuickView.png" width="400px"  />
 <img src="POS/Assets/GitReadMe/printMenu.png" width="400px"  />
+<h2>Create Ticket Page</h2>
+This page is where the employee can create tickets. They can link customers to the ticket on the left by searching for their name, phone, or company(premature) number. The customer panel can be shown or hidden by tapping the arrow. After selecting a customer from the list, their name appear on the top of the ticket. Items and categories are in the center of the screen. The right side of the screen is the ticket and it will show the items, modifiers and discounts. The employee can also add notes to the ticket. The bottom right of the screen shows total, tax and item count.
+<img src="POS/Assets/GitReadMe/createTicketPage.png"   />

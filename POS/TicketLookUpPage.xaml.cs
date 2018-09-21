@@ -382,9 +382,7 @@ namespace POS
             // Build a PrintDocument and register for callbacks
             printDoc = new PrintDocument();
             printDocSource = printDoc.DocumentSource;
-            printDoc.Paginate += Paginate;
-            printDoc.GetPreviewPage += GetPreviewPage;
-            printDoc.AddPages += AddPages;
+
         }
 
         private void PrintTaskRequested(PrintManager sender, PrintTaskRequestedEventArgs args)

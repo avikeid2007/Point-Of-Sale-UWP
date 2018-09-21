@@ -1,5 +1,5 @@
 # Point-Of-Sale-UWP
-There are files missing from this software intentially due to intelectual property reasons. This project has been in progress since 5/30/2017. I work off of visual studio team services.
+There are files missing from this software intentially due to intellectual property reasons. This project has been in progress since 5/30/2017. I work off of visual studio team services.
 
 <h2>Home Page</h2>
 This app has an intuitive design.  The app features a light and dark theme and follows windows 10's fluent design. The following screen shots are of the home page. 

@@ -1363,11 +1363,16 @@
 
                 <!--Search area -->
                 <Grid Grid.Row="1">
-                    <TextBox x:Name="searchCritiria" TextWrapping="Wrap"   Margin="0,0,86,0" TextChanged="searchCritiria_TextChanged"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="searchCritiria" TextWrapping="Wrap"   Margin="0,0,0,0" TextChanged="searchCritiria_TextChanged"/>
 
-                    <ComboBox x:Name="searchType" SelectedIndex="1" HorizontalAlignment="Right" Margin="0,0,0,0" >
+                    <ComboBox x:Name="searchType" SelectedIndex="1" HorizontalAlignment="Right" Margin="0,0,0,0" Grid.Column="1" >
                         <ComboBoxItem x:Name="CustomerNameType" Content="Name"/>
                         <ComboBoxItem x:Name="CustomerPhoneType" Content="Phone"/>
+                        <ComboBoxItem x:Name="CustomerCompanyType" Content="Company"/>
                     </ComboBox>
 
                 </Grid>

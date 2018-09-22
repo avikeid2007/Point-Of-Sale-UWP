@@ -103,72 +103,140 @@ namespace POS.Models
                     SQLiteConnection dbConnection = new SQLiteConnection("Customers.db");
                     string sSQL = null;
 
-                    sSQL = @"SELECT [stringCustomerID],[first],[last],[spouse],[home],[work],[cell]  FROM Customers";
+                    sSQL = @"SELECT [stringCustomerID],[first],[last],[spouse],[home],[work],[cell],[company]  FROM Customers";
                     ISQLiteStatement dbState = dbConnection.Prepare(sSQL);
 
 
-                    for (int i = 0; dbState.Step() == SQLiteResult.ROW; i++)
-                    {
-
-                        string sCustID = dbState["stringCustomerID"] as string;
-                        string sFirst = dbState["first"] as string;
-                        string sLast = dbState["last"] as string;
-                        string sSpouse = dbState["spouse"] as string;
-                        string sHome = dbState["home"] as string;
-                        string sWork = dbState["work"] as string;
-                        string sCell = dbState["cell"] as string;
+                    
 ;
 
-                        if((string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["customerSearchRequested"] == "true")
-                        {
-                            break;
+                    switch (searchType) {
 
-                        }
+
                         //Load into observable collection
-                        if (searchType == 0)//name search
-                        {
-                            try
-                            {
-                                if (sFirst.ToUpper().Contains(query) || sLast.ToUpper().Contains(query) || sSpouse.ToUpper().Contains(query))
+                        case 0://name search
+                            
+                                for (int i = 0; dbState.Step() == SQLiteResult.ROW; i++)
                                 {
+                                    if ((string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["customerSearchRequested"] == "true")
+                                    {
+                                        break;
+
+                                    }
+                                    string sCustID = dbState["stringCustomerID"] as string;
+                                    string sFirst = dbState["first"] as string;
+                                    string sLast = dbState["last"] as string;
+                                    string sSpouse = dbState["spouse"] as string;
+                                    string sHome = dbState["home"] as string;
+                                    string sWork = dbState["work"] as string;
+                                    string sCell = dbState["cell"] as string;
+
+                                    try
+                                    {
+                                        if (sFirst.ToUpper().Contains(query) || sLast.ToUpper().Contains(query) || sSpouse.ToUpper().Contains(query))
+                                        {
+                                            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                            {
+                                                searchResults.Add(new Customer { customerID = sCustID, full = sFirst + " " + sLast, first = sFirst, last = sLast, spouse = sSpouse, home = sHome, work = sWork, cell = sCell });
+                                            });
+                                        }
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
+
+                            break;
+                        case 1://number search
+                            
+                                for (int i = 0; dbState.Step() == SQLiteResult.ROW; i++)
+                                {
+                                    if ((string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["customerSearchRequested"] == "true")
+                                    {
+                                        break;
+
+                                    }
+
+                                    string sCustID = dbState["stringCustomerID"] as string;
+                                    string sFirst = dbState["first"] as string;
+                                    string sLast = dbState["last"] as string;
+                                    string sSpouse = dbState["spouse"] as string;
+                                    string sHome = dbState["home"] as string;
+                                    string sWork = dbState["work"] as string;
+                                    string sCell = dbState["cell"] as string;
+
+                                    if (sHome.Contains(query) || sCell.Contains(query) || sWork.Contains(query))
+                                    {
+                                        try
+                                        {
+                                            sHome = addDash(sHome);
+                                        }
+                                        catch { }
+                                        try
+                                        {
+                                            sWork = addDash(sWork);
+                                        }
+                                        catch { }
+                                        try
+                                        {
+                                            sCell = addDash(sCell);
+                                        }
+                                        catch { }
+
+                                        await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                        {
+                                            searchResults.Add(new Customer { customerID = sCustID, full = sFirst + " " + sLast, first = sFirst, last = sLast, spouse = sSpouse, home = sHome, work = sWork, cell = sCell });
+                                        });
+                                    }
+
+                                }
+                            break;
+                        case 2:
+                            for (int i = 0; dbState.Step() == SQLiteResult.ROW; i++)
+                            {
+                                if ((string)Windows.Storage.ApplicationData.Current.LocalSettings.Values["customerSearchRequested"] == "true")
+                                {
+                                    break;
+
+                                }
+
+                                string sCustID = dbState["stringCustomerID"] as string;
+                                string sFirst = dbState["first"] as string;
+                                string sLast = dbState["last"] as string;
+                                string sSpouse = dbState["spouse"] as string;
+                                string sHome = dbState["home"] as string;
+                                string sWork = dbState["work"] as string;
+                                string sCell = dbState["cell"] as string;
+                                string sCompany = dbState["company"] as string;
+
+                                if (sCompany.ToUpper().Contains(query))
+                                {
+                                    try
+                                    {
+                                        sHome = addDash(sHome);
+                                    }
+                                    catch { }
+                                    try
+                                    {
+                                        sWork = addDash(sWork);
+                                    }
+                                    catch { }
+                                    try
+                                    {
+                                        sCell = addDash(sCell);
+                                    }
+                                    catch { }
+
                                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                                     {
                                         searchResults.Add(new Customer { customerID = sCustID, full = sFirst + " " + sLast, first = sFirst, last = sLast, spouse = sSpouse, home = sHome, work = sWork, cell = sCell });
                                     });
                                 }
-                            }
-                            catch
-                            {
 
                             }
-                        }
-
-                        else//number search
-                        {
-                            if (sHome.Contains(query) || sCell.Contains(query) || sWork.Contains(query))
-                            {
-                                try
-                                {
-                                    sHome = addDash(sHome);
-                                }
-                                catch { }
-                                try
-                                {
-                                    sWork = addDash(sWork);
-                                }
-                                catch { }
-                                try
-                                {
-                                    sCell = addDash(sCell);
-                                }
-                                catch { }
-
-                                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                                {
-                                    searchResults.Add(new Customer { customerID = sCustID, full = sFirst + " " + sLast, first = sFirst, last = sLast, spouse = sSpouse, home = sHome, work = sWork, cell = sCell });
-                                });
-                            }
-                        }
+                            break;
+                      
                     }
                     dbState.Dispose();
                     dbConnection.Dispose();

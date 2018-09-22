@@ -206,8 +206,16 @@
     <Content Include="Assets\Backgrounds\art8.jpg" />
     <Content Include="Assets\Backgrounds\art9.jpg" />
     <Content Include="Assets\createTicketButton.png" />
+    <Content Include="Assets\GitReadMe\createTicketPage.png" />
+    <Content Include="Assets\GitReadMe\finalizeTicket.PNG" />
     <Content Include="Assets\GitReadMe\homeDark.png" />
     <Content Include="Assets\GitReadMe\homeLight.png" />
+    <Content Include="Assets\GitReadMe\homeQuickView.png" />
+    <Content Include="Assets\GitReadMe\printInvoice.png" />
+    <Content Include="Assets\GitReadMe\printMenu.png" />
+    <Content Include="Assets\GitReadMe\printTicketLookUp.png" />
+    <Content Include="Assets\GitReadMe\ticketExpanded.PNG" />
+    <Content Include="Assets\GitReadMe\timesheet.png" />
     <Content Include="Assets\LookUpTicketButton.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

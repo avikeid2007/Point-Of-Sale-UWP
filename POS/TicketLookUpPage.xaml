@@ -325,7 +325,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBox x:Name="searchCritiria" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextChanging="searchCritiria_TextChanging"/>
+                                <TextBox x:Name="searchCritiria" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextChanging="searchCritiria_TextChanging" PlaceholderText="Customer Search Cirtiria"/>
 
                                 <ListView x:Name="searchResults" Grid.Row="1" ItemsSource="{x:Bind FilteredCustomer}" ItemTemplate="{StaticResource FilteredCustomerTemplate}" IsItemClickEnabled="True" ItemClick="searchResults_ItemClick" >
                                     <ListView.ItemContainerTransitions>
@@ -345,6 +345,9 @@
                                     </ComboBoxItem>
                                     <ComboBoxItem >
                                         <TextBlock Text="Customer Number"/>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem >
+                                        <TextBlock Text="Customer Company"/>
                                     </ComboBoxItem>
                                     <ComboBoxItem >
                                         <TextBlock Text="All Tickets"/>

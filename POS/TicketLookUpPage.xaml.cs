@@ -283,11 +283,23 @@ namespace POS
         private async void searchType_SelectionChanged(object sender, SelectionChangedEventArgs e)//change combobox
         {
             if (searchType.SelectedIndex == 1)
+            {
+                searchCritiria.IsReadOnly = false;
                 await Customer.FilterCustomerAsync(FilteredCustomer, 0, searchCritiria.Text.ToUpper());
+            }
             else if (searchType.SelectedIndex == 2)
+            {
+                searchCritiria.IsReadOnly = false;
                 await Customer.FilterCustomerAsync(FilteredCustomer, 1, searchCritiria.Text.ToUpper());
+            }
+            else if (searchType.SelectedIndex == 3)
+            {
+                searchCritiria.IsReadOnly = false;
+                await Customer.FilterCustomerAsync(FilteredCustomer, 2, searchCritiria.Text.ToUpper());
+            }
             else
             {
+                searchCritiria.IsReadOnly = true;
                 FilteredCustomer.Clear();
             }
 

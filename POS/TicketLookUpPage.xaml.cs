@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Printing;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -83,6 +84,12 @@ namespace POS
                 searchPopColor.Background = brush;
                 resultBackColor.Background = brush;
 
+                Brush brush3 = new SolidColorBrush(Colors.DarkGray);
+                border1.BorderBrush = brush3;
+                border2.BorderBrush = brush3;
+                border3.BorderBrush = brush3;
+                border4.BorderBrush = brush3;
+                border5.BorderBrush = brush3;
             }
 
             searchCriteriaPopUp.IsOpen = true;
@@ -260,7 +267,14 @@ namespace POS
             string endDate = endDatePicker.Date.ToString("yyyyMMdd");
             //endDate = Convert.ToString(Convert.ToDouble(endDate) + 1);
             int index = searchType.SelectedIndex;
-            await refreshingTickets(selectedCustID, startDate, endDate, searchCritiria.Text, index);
+            if (searchType.SelectedIndex == 0)
+            {
+                await refreshingTickets(selectedCustID, startDate, endDate, ticketSource.Text, index);
+            }
+            else
+            {
+                await refreshingTickets(selectedCustID, startDate, endDate, searchCritiria.Text, index);
+            }
         }
 
         private void ticketListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -282,25 +296,91 @@ namespace POS
         //Customer Search
         private async void searchType_SelectionChanged(object sender, SelectionChangedEventArgs e)//change combobox
         {
-            if (searchType.SelectedIndex == 1)
+            
+
+            if(searchType.SelectedIndex == 0)
             {
-                searchCritiria.IsReadOnly = false;
+                try
+                {
+                    if (ticketSource.Opacity != 1)
+                    {
+
+                        textFadeIn.Begin();
+                    }
+                }
+                catch { }
+                if (searchPopUpGrid.Width == 300)
+                {
+                    moveGridIn.Begin();
+                    movePopUpIn.Begin();
+
+                }
+
+            }
+            else if (searchType.SelectedIndex == 1)//customer
+            {
+                if (ticketSource.Opacity == 1)
+                {
+
+                    textFadeOut.Begin();
+                }
+
+                if (searchPopUpGrid.Width == 0)
+                {
+                    moveGridOut.Begin();
+                    movePopUpOut.Begin();
+                    
+                }
                 await Customer.FilterCustomerAsync(FilteredCustomer, 0, searchCritiria.Text.ToUpper());
+                
             }
-            else if (searchType.SelectedIndex == 2)
+            else if (searchType.SelectedIndex == 2)//customer
             {
-                searchCritiria.IsReadOnly = false;
+                if (ticketSource.Opacity == 1)
+                {
+
+                    textFadeOut.Begin();
+                }
+                if (searchPopUpGrid.Width == 0)
+                {
+                    moveGridOut.Begin();
+                    movePopUpOut.Begin();
+                    
+                }
                 await Customer.FilterCustomerAsync(FilteredCustomer, 1, searchCritiria.Text.ToUpper());
+
             }
-            else if (searchType.SelectedIndex == 3)
+            else if (searchType.SelectedIndex == 3)//customer
             {
-                searchCritiria.IsReadOnly = false;
+                if (ticketSource.Opacity == 1)
+                {
+
+                    textFadeOut.Begin();
+                }
+
+                if (searchPopUpGrid.Width == 0)
+                {
+                    moveGridOut.Begin();
+                    movePopUpOut.Begin();
+                    
+                }
                 await Customer.FilterCustomerAsync(FilteredCustomer, 2, searchCritiria.Text.ToUpper());
             }
             else
             {
-                searchCritiria.IsReadOnly = true;
+                if (ticketSource.Opacity == 1)
+                {
+
+                    textFadeOut.Begin();
+                }
+
                 FilteredCustomer.Clear();
+                if (searchPopUpGrid.Width == 300)
+                {
+                    moveGridIn.Begin();
+                    movePopUpIn.Begin();
+                    
+                }
             }
 
         }

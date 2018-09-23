@@ -180,7 +180,7 @@
                 <Grid>
                     <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
 
-                        <TextBlock Text="Setup Tills" FontSize="16" Margin="0,0,0,4"></TextBlock>
+                        <TextBlock Text="Setup Till" FontSize="16" Margin="0,0,0,4"></TextBlock>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="265"/>

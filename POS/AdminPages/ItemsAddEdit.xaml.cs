@@ -202,6 +202,7 @@ VALUES
         private void catBack_Tapped(object sender, TappedRoutedEventArgs e)
         {
             catBack.Visibility = Visibility.Collapsed;
+            categoryGridView.SelectedIndex = -1;
             Item.refreshingItems("-1", Items);
         }
 
@@ -214,7 +215,14 @@ VALUES
             itemDescription.Text = "";
             minQuantity.Text = "";
             itemCost.Text = "";
-            addItemCat.SelectedIndex = Categories2.Count() -1;
+            if (categoryGridView.SelectedIndex == -1)
+            {
+                addItemCat.SelectedIndex = Categories2.Count() - 1;
+            }
+            else
+            {
+                addItemCat.SelectedIndex = categoryGridView.SelectedIndex;
+            }
             addModGridView.SelectedIndex = -1;
             addTaxGridView.SelectedIndex = -1;
             addItemPopUp.IsOpen = true;
@@ -247,6 +255,10 @@ VALUES
 
             string itemNameBox = itemName.Text;
             string itemPrice = price.Text;
+            if(itemPrice == "")
+            {
+                itemPrice = "0.00";
+            }
             string description = itemDescription.Text;
             string position = itemCat.categoryID;
             string minimumQuan = minQuantity.Text;
@@ -409,6 +421,10 @@ VALUES
 
             string itemNameBox = editItemName.Text;
             string itemPrice = editPrice.Text;
+            if (itemPrice == "")
+            {
+                itemPrice = "0.00";
+            }
             string description = editItemDescription.Text;
             string position = itemCat.categoryID;
             string minimumQuan = editMinQuantity.Text;

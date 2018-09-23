@@ -283,6 +283,69 @@
                 <TextBlock Text="{x:Bind type}" Grid.Column="0" HorizontalAlignment="Center"/>
             </Grid>
         </DataTemplate>
+    
+           <!--Aimation -->
+
+        <Storyboard x:Name="moveGridIn">
+            
+                <DoubleAnimation
+          Storyboard.TargetName="searchPopUpGrid"
+          Storyboard.TargetProperty="Width"
+          From="300" To="0.0" Duration="0:0:.19"
+          
+                    EnableDependentAnimation="True"/>
+            
+        </Storyboard>
+        <Storyboard x:Name="moveGridOut">
+
+            <DoubleAnimation 
+          Storyboard.TargetName="searchPopUpGrid"
+          Storyboard.TargetProperty="Width"
+          From="0.0" To="300" Duration="0:0:.19"
+          
+                    EnableDependentAnimation="True"/>
+
+        </Storyboard>
+
+        <Storyboard x:Name="movePopUpOut">
+
+            <DoubleAnimation 
+          Storyboard.TargetName="searchCriteriaPopUp"
+          Storyboard.TargetProperty="Width"
+          From="300" To="600" Duration="0:0:.19"
+          
+                    EnableDependentAnimation="True"/>
+
+        </Storyboard>
+        <Storyboard x:Name="movePopUpIn">
+
+            <DoubleAnimation 
+          Storyboard.TargetName="searchCriteriaPopUp"
+          Storyboard.TargetProperty="Width"
+          From="600" To="300" Duration="0:0:.19"
+          
+                    EnableDependentAnimation="True"/>
+
+        </Storyboard>
+
+
+        <Storyboard x:Name="textFadeIn">
+            <DoubleAnimation 
+                Storyboard.TargetName="ticketSource"
+                    Storyboard.TargetProperty="Opacity"
+                    From="0.0" To="1" Duration="0:0:.19"
+          
+                            EnableDependentAnimation="True"/>
+        </Storyboard>
+
+        <Storyboard x:Name="textFadeOut">
+            <DoubleAnimation 
+                Storyboard.TargetName="ticketSource"
+                    Storyboard.TargetProperty="Opacity"
+                    From="1" To="0" Duration="0:0:.19"
+          
+                            EnableDependentAnimation="True"/>
+        </Storyboard>
 
     </Page.Resources>
 
@@ -298,7 +361,7 @@
         <userControl:PrintInvoice x:Name="printInvoiceControl"></userControl:PrintInvoice>
 
         <!--Popup search Menu -->
-        <Popup VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3"  x:Name="searchCriteriaPopUp" IsLightDismissEnabled="True" Width="600" Height="420">
+        <Popup VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3" Grid.RowSpan="3"  x:Name="searchCriteriaPopUp" IsLightDismissEnabled="True" Width="300" Height="420">
 
             <Popup.ChildTransitions>
                 <TransitionCollection>
@@ -307,20 +370,22 @@
             </Popup.ChildTransitions>
             <StackPanel Background="Transparent" Padding="12">
                 <Grid>
+                    
                     <StackPanel Background="Transparent" Padding="12" BorderBrush="Black" BorderThickness="2">
                         <TextBlock Text="Search" FontSize="16" Margin="0,0,0,4"/>
-                        <Grid Height="Auto">
+                        <Grid  Height="Auto" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="300"/>
-                                <ColumnDefinition Width="300"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="320"/>
 
                             </Grid.RowDefinitions>
                             <!-- Items in popup-->
-
-                            <Grid>
+                            
+                            <!--Search Side -->
+                            <Grid  Grid.Column="1" x:Name="searchPopUpGrid" Width="300" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
@@ -335,7 +400,7 @@
 
                             </Grid>
 
-                            <StackPanel Grid.Column="1" >
+                            <StackPanel  >
                                 <ComboBox x:Name="searchType" Width="175" VerticalAlignment="Center" SelectedIndex="0" SelectionChanged="searchType_SelectionChanged">
                                     <ComboBoxItem>
                                         <TextBlock Text="Ticket Number"/>
@@ -359,8 +424,11 @@
                                 <TextBlock Text="Ending Date:" VerticalAlignment="Center" Margin="2"/>
                                 <DatePicker x:Name="endDatePicker" Margin="2"/>
 
+                                <TextBox x:Name="ticketSource"  Margin="2,15,2,2" PlaceholderText="Enter Ticket Number" >
+                                </TextBox>
+
                             </StackPanel>
-                            <Button x:Name="search" Grid.Column="1" Content="Search" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Tapped="search_Tapped" />
+                            <Button x:Name="search" Grid.Column="0" Content="Search" Margin="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Tapped="search_Tapped" />
 
 
                             <!-- Items in popup-->
@@ -552,14 +620,14 @@
             <TextBlock Text="Ready Date" Grid.Column="5" HorizontalAlignment="Center"/>
 
 
-            <Grid BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="0" Grid.Row="2" />
-            <Grid BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="1" Grid.Row="2" />
-            <Grid BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="2" Grid.Row="2" />
-            <Grid BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="3" Grid.Row="2" />
-            <Grid BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="4" Grid.Row="2" />
+            <Grid x:Name="border1" BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="0" Grid.Row="2" Canvas.ZIndex="1" />
+            <Grid x:Name="border2" BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="1" Grid.Row="2"  Canvas.ZIndex="1"/>
+            <Grid x:Name="border3" BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="2" Grid.Row="2" Canvas.ZIndex="1" />
+            <Grid x:Name="border4" BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="3" Grid.Row="2"  Canvas.ZIndex="1"/>
+            <Grid x:Name="border5" BorderBrush="Black" BorderThickness="0,0,2,0" Grid.Column="4" Grid.Row="2" Canvas.ZIndex="1" />
 
 
-            <ListView x:Name="ticketListView"  Grid.Row="2" Grid.ColumnSpan="7" ItemsSource="{x:Bind TicketResult}" SelectionChanged="ticketListView_SelectionChanged" ScrollViewer.IsVerticalRailEnabled="False" ItemTemplate="{StaticResource TicketIDListViewDataTemplate}" IsItemClickEnabled="True" SelectionMode="Single" >
+            <ListView x:Name="ticketListView"  Grid.Row="2" Grid.ColumnSpan="7" ItemsSource="{x:Bind TicketResult}" SelectionChanged="ticketListView_SelectionChanged" ScrollViewer.IsVerticalRailEnabled="False" ItemTemplate="{StaticResource TicketIDListViewDataTemplate}" IsItemClickEnabled="True" SelectionMode="Single" Canvas.ZIndex="10" >
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Margin" Value="0"/>

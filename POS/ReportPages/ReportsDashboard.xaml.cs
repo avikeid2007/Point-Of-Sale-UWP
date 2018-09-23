@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -97,6 +98,12 @@ namespace POS
         }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+
+            incomeGrid.Fade(value: 1f, duration: 600, delay: 275).StartAsync();
+            refundGrid.Fade(value: 1f, duration: 600, delay: 375).StartAsync();
+            mostSoldGrid.Fade(value: 1f, duration: 600, delay: 475).StartAsync();
+            costGrid.Fade(value: 1f, duration: 600, delay: 575).StartAsync();
+            hoursGrid.Fade(value: 1f, duration: 600, delay: 675).StartAsync();
             todayIncome.Text = await IncomeAsync("today");
             weekIncome.Text = await IncomeAsync("week");
             monthIncome.Text = await IncomeAsync("month");
@@ -147,6 +154,7 @@ namespace POS
             yearCost.Text = await CostAsync("year");
 
             LoadPieContents();
+            
         }
 
         public class ItemAmounts

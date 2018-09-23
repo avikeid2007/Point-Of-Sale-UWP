@@ -516,7 +516,7 @@
                 </StackPanel>
                 <Button x:Name="addCategory" Content="Add Category" HorizontalAlignment="Center" Click="addCategory_Click"/>
                 <Grid.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </Grid.Background>
             </Grid>
             <GridView x:Name="categoryGridView" Grid.Row="1" ItemsSource="{x:Bind Categories}" ItemTemplate="{StaticResource CategoryGridDataTemplate}" ItemClick="categoryGridView_ItemClick" AllowDrop="True" ReorderMode="Enabled" IsItemClickEnabled="True" />
@@ -527,7 +527,7 @@
                 <TextBlock Text="Items" FontSize="25"/>
                 <Button x:Name="addItem" Content="Add Item" HorizontalAlignment="Center" Click="addItem_Click" />
                 <Grid.Background>
-                     <SolidColorBrush Color="Black" Opacity="0.5"/>
+                     <SolidColorBrush Color="Black" Opacity="0.7"/>
                 </Grid.Background>
             </Grid>
             <GridView x:Name="itemGridView"  ItemsSource="{x:Bind Items}" CanDragItems="True"  Grid.Row="3" ItemTemplate="{StaticResource ItemGridDataTemplate}" IsItemClickEnabled="True" ItemClick="itemGridView_ItemClick" />

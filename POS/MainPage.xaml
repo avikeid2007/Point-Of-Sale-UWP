@@ -38,7 +38,7 @@
 
     
 
-        <NavigationView x:FieldModifier="public" Canvas.ZIndex="2" ItemInvoked="Hamberg_Menu_ItemInvoked"  x:Name="Hamberg_Menu" Grid.Row="1" IsPaneOpen="False" AlwaysShowHeader="False" CompactPaneLength="48" OpenPaneLength="225" Background="{ThemeResource MyAcrylicBrush}"  RequestedTheme="Dark">
+        <NavigationView x:FieldModifier="public" Canvas.ZIndex="2" ItemInvoked="Hamberg_Menu_ItemInvoked" IsBackButtonVisible="Collapsed"  x:Name="Hamberg_Menu" Grid.Row="1" IsPaneOpen="False" AlwaysShowHeader="False" CompactPaneLength="48" OpenPaneLength="225" Background="{ThemeResource MyAcrylicBrush}"  RequestedTheme="Dark">
 
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Home" Tag="home" >
@@ -82,8 +82,9 @@
             <Frame x:FieldModifier="public"  x:Name="selectionFrame" Canvas.ZIndex="1">
             <Frame.ContentTransitions>
                 <TransitionCollection>
-                    <PaneThemeTransition/>
-                </TransitionCollection>
+                        <PopupThemeTransition />
+                   
+                    </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
         </Grid>

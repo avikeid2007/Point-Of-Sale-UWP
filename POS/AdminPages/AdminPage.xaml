@@ -20,9 +20,9 @@
 
 
     <Grid Background="Transparent">
-
+        <!--
         <local:LogInOverlay HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PageToUnlock="admin"  Grid.RowSpan="10" Grid.ColumnSpan="10"/>
-
+        -->
 
         <Grid Canvas.ZIndex="-1">
             <Grid.RowDefinitions>

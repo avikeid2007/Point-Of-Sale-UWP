@@ -23,24 +23,24 @@ namespace POS.Models
 
 
             SQLiteConnection dbConnection2 = new SQLiteConnection("Tickets.db");
-            string sSQL2 = @"SELECT [payType],[tenderAmount] FROM Payments WHERE stringTicketID = '" + ticketID + "'";
+            string sSQL2 = @"SELECT [payType],[tenderAmount] FROM Payments WHERE stringTicketID = '" + ticketID + "' AND deleted != '"+true+"'";
             ISQLiteStatement dbState2 = dbConnection2.Prepare(sSQL2);
             while (dbState2.Step() == SQLiteResult.ROW)
             {
                 var sPayType = (long)dbState2["payType"];
                 double sTenderAmount = (double)dbState2["tenderAmount"];
                 string payType = "";
-                if (sPayType == 1)
+                switch (sPayType)
                 {
-                    payType = "Cash";
-                }
-                else if (sPayType == 2)
-                {
-                    payType = "Card";
-                }
-                else
-                {
-                    payType = "Check";
+                    case 1:
+                        payType = "Cash";
+                        break;
+                    case 2:
+                        payType = "Credit";
+                        break;
+                    case 3:
+                        payType = "Check";
+                        break;
                 }
 
                 payments.Add(new Payments { type = payType, amount = "$" + String.Format("{0:#.00}", sTenderAmount) });
@@ -59,26 +59,31 @@ namespace POS.Models
             Payments = payManager.GetPay();
 
             SQLiteConnection dbConnection2 = new SQLiteConnection("Tickets.db");
-            string sSQL2 = @"SELECT [payType],[tenderAmount],[drawerID],[PayID] FROM Payments WHERE stringTicketID = '" + ticketID + "'";
+            string sSQL2 = @"SELECT [payType],[tenderAmount],[drawerID],[PayID] FROM Payments WHERE stringTicketID = '" + ticketID + " AND deleted != '"+true+"'";
             ISQLiteStatement dbState2 = dbConnection2.Prepare(sSQL2);
             while (dbState2.Step() == SQLiteResult.ROW)
             {
                 var sPayID = (long)dbState2["PayID"];
                 var sPayType = (long)dbState2["payType"];
-                var sDrawerID = (long)dbState2["drawerID"];
+                var sDrawerID = (long)dbState2["PayID"];
+                try//this is here because it is an error when credit card doesnt have a drawer
+                {
+                   sDrawerID = (long)dbState2["drawerID"];
+                }
+                catch { sDrawerID = -1; }
                 double sTenderAmount = (double)dbState2["tenderAmount"];
                 string payType = "";
-                if (sPayType == 1)
+                switch (sPayType)
                 {
-                    payType = "Cash";
-                }
-                else if (payType == "2")
-                {
-                    payType = "Credit";
-                }
-                else
-                {
-                    payType = "Check";
+                    case 1:
+                        payType = "Cash";
+                        break;
+                    case 2:
+                        payType = "Credit";
+                        break;
+                    case 3:
+                        payType = "Check";
+                        break;
                 }
 
                 string tillName = Till.getTillByID(Convert.ToString(sDrawerID)).name;

@@ -613,6 +613,9 @@
                 <TextBlock Text="{x:Bind amount}"  HorizontalAlignment="Center"  Grid.Column="1"   VerticalAlignment="Center" Width="Auto"  FontSize="15"/>
             </Grid>
         </DataTemplate>
+
+
+        
     </Page.Resources>
 
 

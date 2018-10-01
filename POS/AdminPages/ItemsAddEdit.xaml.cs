@@ -136,19 +136,6 @@ VALUES
 
         }
 
-        private void removeCatButton_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            SQLiteConnection dbConnection = new SQLiteConnection("Items.db");
-            string deleteQuery = "DELETE FROM Categories WHERE stringCatID = '" + selectedCat + "'";
-            dbConnection.Prepare(deleteQuery).Step();
-            //categoryDetails.IsPaneOpen = false;
-            dbConnection.Dispose();
-            
-            Categories.Clear();
-
-            refreshingCategories();
-        }
-
         public void refreshingCategories()
         {
             Categories.Clear();
@@ -238,6 +225,34 @@ VALUES
         private void editCatCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             editCategoryPopUp.IsOpen = false;
+        }
+
+        private async void deleteCatMenu_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ContentDialog deleteFileDialog = new ContentDialog
+            {
+                Title = "Delete Category?",
+                Content = "If you delete this category, all the items will be placed in the no group catgory. Do you wish to continue?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel"
+            };
+            ContentDialogResult result = await deleteFileDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                SQLiteConnection dbConnection = new SQLiteConnection("Items.db");
+                string deleteQuery = "DELETE FROM Categories WHERE catID ='" + rightClickCat.categoryID + "'";
+                dbConnection.Prepare(deleteQuery).Step();
+
+                string update = "UPDATE Items set category='" + "-1" + "' WHERE category = '" + rightClickCat.categoryID + "'";
+                dbConnection.Prepare(update).Step();
+                dbConnection.Dispose();
+                refreshingModGroup();
+
+            }
+            else
+            {
+                // Do nothing.
+            }
         }
 
         /****************Item Settings***************/

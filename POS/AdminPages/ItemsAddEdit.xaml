@@ -29,6 +29,7 @@
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout >
                             <MenuFlyoutItem Text="Edit Category"  x:Name="editCatMenu" Tapped="editCatMenu_Tapped"/>
+                            <MenuFlyoutItem Text="Delete Category"  x:Name="deleteCatMenu" Tapped="deleteCatMenu_Tapped"/>
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                     <TextBlock Text="{x:Bind name}" TextWrapping="WrapWholeWords"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"  FontSize="22" />

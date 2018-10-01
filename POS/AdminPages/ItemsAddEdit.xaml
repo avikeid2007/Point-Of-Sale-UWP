@@ -25,7 +25,12 @@
         <!--Category GridView -->
         <DataTemplate x:DataType="data:Category" x:Key="CategoryGridDataTemplate" >
             <Border x:Name="catDropBorder" DragEnter="catDropBorder_DragEnter" Drop="catDropBorder_Drop">
-                <Grid Height="120" Width="120" Background="Tan" Opacity=".95">
+                <Grid x:Name="catGrid" Height="120" Width="120" Background="Tan" Opacity=".95" RightTapped="catGrid_RightTapped">
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout >
+                            <MenuFlyoutItem Text="Edit Category"  x:Name="editCatMenu" Tapped="editCatMenu_Tapped"/>
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
                     <TextBlock Text="{x:Bind name}" TextWrapping="WrapWholeWords"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"  FontSize="22" />
                 </Grid>
             </Border>
@@ -177,6 +182,48 @@
                 
                 </StackPanel>
         </Popup>
+
+            <!--Edit Category Popup -->
+            <Popup VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="4" Grid.Row="1" x:Name="editCategoryPopUp" IsLightDismissEnabled="True" Width="400" Height="280">
+                <Popup.ChildTransitions>
+                    <TransitionCollection>
+                        <PopupThemeTransition FromHorizontalOffset="0" FromVerticalOffset="200"></PopupThemeTransition>
+                    </TransitionCollection>
+                </Popup.ChildTransitions>
+                <StackPanel Background="Transparent" Padding="12">
+                    <Grid>
+                        <StackPanel Padding="12" BorderBrush="Black" BorderThickness="2">
+                            <TextBlock Text="Edit Category" FontSize="16" Margin="0,0,0,4"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <!-- Items in popup-->
+
+                                <TextBox x:Name="editCategoryName" PlaceholderText="Change Name" FontSize="18" Grid.Row="0" />
+                                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                                    <Button x:Name="editCatSave" Content="Save" HorizontalAlignment="Center"  Margin="0,10,0,0"  VerticalAlignment="Top" Tapped="editCatSave_Tapped"/>
+                                    <Button x:Name="editCatCancel" Content="Cancel" HorizontalAlignment="Center"  Margin="20,10,0,0" Grid.Row="3" VerticalAlignment="Top" Tapped="editCatCancel_Tapped"/>
+                                        </StackPanel>
+                                        <!-- Items in popup-->
+                            </Grid>
+                        </StackPanel>
+                        <Grid x:Name="editCatColor" Canvas.ZIndex="-1" Grid.ColumnSpan="10" Grid.RowSpan="10">
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:Blur Value="25"/>
+                            </interactivity:Interaction.Behaviors>
+                            <Grid.Background>
+                                <SolidColorBrush Color="Black" Opacity="0.5"/>
+                            </Grid.Background>
+                        </Grid>
+                    </Grid>
+
+                </StackPanel>
+            </Popup>
 
             <!--Add ModGroup Popup -->
             <Popup VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="4" Grid.Row="1" x:Name="addModGroupPopUp" IsLightDismissEnabled="True" Width="400" Height="280">

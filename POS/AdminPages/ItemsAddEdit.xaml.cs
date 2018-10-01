@@ -40,6 +40,7 @@ namespace POS
         public ObservableCollection<Modifier> ModifierGroups;
         public ObservableCollection<Modifier> ModifierSelectedGroup;
         public string selectedCat = "-1";
+        public Category rightClickCat;
 
         public string selectedModGroup;
         public string selectedModItem;
@@ -88,6 +89,7 @@ namespace POS
                 Brush brush3 = new SolidColorBrush(Colors.LightGray);
                 brush3.Opacity = 0.6;
                 addCatColor.Background = brush3;
+                editCatColor.Background = brush3;
                 addModGroupColor.Background = brush3;
                 addItemColor.Background = brush3;
                 editItemColor.Background = brush3;
@@ -204,6 +206,38 @@ VALUES
             catBack.Visibility = Visibility.Collapsed;
             categoryGridView.SelectedIndex = -1;
             Item.refreshingItems("-1", Items);
+        }
+
+        private void catGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
+            var s = (FrameworkElement)sender;
+            var d = s.DataContext;
+            var cat = d as Category;
+            rightClickCat = cat;
+
+        }
+
+        private void editCatMenu_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            editCategoryName.Text = rightClickCat.name;
+            editCategoryPopUp.IsOpen = true;
+        }
+
+        private void editCatSave_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+            SQLiteConnection dbConnection = new SQLiteConnection("Items.db");
+            string update = "UPDATE Categories set name='" + editCategoryName.Text + "' WHERE catID = '" + rightClickCat.categoryID + "'";
+            dbConnection.Prepare(update).Step();
+            dbConnection.Dispose();
+            editCategoryPopUp.IsOpen = false;
+            refreshingCategories();
+        }
+
+        private void editCatCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            editCategoryPopUp.IsOpen = false;
         }
 
         /****************Item Settings***************/
@@ -981,6 +1015,6 @@ VALUES
 
         }
 
-
+        
     }
 }

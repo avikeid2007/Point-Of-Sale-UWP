@@ -39,7 +39,7 @@ namespace POS
         public ObservableCollection<Tax> TaxRates;
         public ObservableCollection<Modifier> ModifierGroups;
         public ObservableCollection<Modifier> ModifierSelectedGroup;
-        public string selectedCat = "-1";
+        public Int64 selectedCat = -1;
         public Category rightClickCat;
 
         public string selectedModGroup;
@@ -49,7 +49,6 @@ namespace POS
         public string nextMod;
         public string nextModGroup;
         public string nextItem;
-        public string nextCat;
 
         //private string[] modGroups = new string[5];
         List<string> modGroups = new List<string>();
@@ -107,7 +106,7 @@ namespace POS
             nextMod = refreshingModID();
             nextModGroup = refreshingModGroupID();
             nextItem = refreshingItemID();
-            nextCat = refreshingCatID();
+            
 
         }
 
@@ -122,14 +121,13 @@ namespace POS
         {
             string categoryNameBox = categoryName.Text;
             string sSQL = @"INSERT INTO [Categories] 
-([name],[stringCatID]) 
+([name]) 
 VALUES 
-('" + categoryNameBox + "','" + nextCat + "');";
+('" + categoryNameBox + "');";
 
             SQLiteConnection dbConnection = new SQLiteConnection("Items.db");
             dbConnection.Prepare(sSQL).Step();
             dbConnection.Dispose();
-            nextCat += 1;
 
             refreshingCategories();
             addCategoryPopUp.IsOpen = false;
@@ -145,13 +143,13 @@ VALUES
             string deleteQuery = "DELETE FROM Categories WHERE name = '" + " " + "'";
             dbConnection.Prepare(deleteQuery).Step();
 
-            string sSQL = @"SELECT [name],[stringCatID],[catPosition] FROM Categories";
+            string sSQL = @"SELECT [name],[catID],[catPosition] FROM Categories";
             ISQLiteStatement dbState = dbConnection.Prepare(sSQL);
 
 
             while (dbState.Step() == SQLiteResult.ROW)
             {
-                string sID = dbState["stringCatID"] as string;
+                var sID = (long)dbState["catID"];
                 string sName = dbState["name"] as string;
                 string sPosition = dbState["catPosition"] as string;
 
@@ -159,25 +157,9 @@ VALUES
                 Categories.Add(new Category { categoryID = sID, name = sName, position = sPosition });
                 Categories2.Add(new Category { categoryID = sID, name = sName, position = sPosition });
             }
-            Categories2.Add(new Category { categoryID = "-1", name = "No Group" });
+            Categories2.Add(new Category { categoryID = -1, name = "No Group" });
             dbConnection.Dispose();
             dbState.Dispose();
-        }
-        public string refreshingCatID()
-        {
-            SQLiteConnection dbConnection = new SQLiteConnection("Items.db");
-            string sSQL = @"SELECT * FROM Categories ORDER BY catID DESC LIMIT 1;";
-            ISQLiteStatement dbState = dbConnection.Prepare(sSQL);
-            string catID = "1";
-            while (dbState.Step() == SQLiteResult.ROW)
-            {
-                catID = Convert.ToString(Convert.ToDouble(dbState["stringCatID"] as string) + 1);
-                break;
-            }
-            dbState.Dispose();
-            dbConnection.Dispose();
-
-            return catID;
         }
 
         private void categoryGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -192,7 +174,7 @@ VALUES
         {
             catBack.Visibility = Visibility.Collapsed;
             categoryGridView.SelectedIndex = -1;
-            Item.refreshingItems("-1", Items);
+            Item.refreshingItems(-1, Items);
         }
 
         private void catGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -246,7 +228,7 @@ VALUES
                 string update = "UPDATE Items set category='" + "-1" + "' WHERE category = '" + rightClickCat.categoryID + "'";
                 dbConnection.Prepare(update).Step();
                 dbConnection.Dispose();
-                refreshingModGroup();
+                refreshingCategories();
 
             }
             else
@@ -309,7 +291,7 @@ VALUES
                 itemPrice = "0.00";
             }
             string description = itemDescription.Text;
-            string position = itemCat.categoryID;
+            Int64 position = itemCat.categoryID;
             string minimumQuan = minQuantity.Text;
             string cost = itemCost.Text;
             string sSQL2 = @"INSERT INTO [Items] 
@@ -475,7 +457,7 @@ VALUES
                 itemPrice = "0.00";
             }
             string description = editItemDescription.Text;
-            string position = itemCat.categoryID;
+            Int64 position = itemCat.categoryID;
             string minimumQuan = editMinQuantity.Text;
             string cost = editItemCost.Text;
             editItemPopUp.IsOpen = false;

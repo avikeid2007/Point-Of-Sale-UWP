@@ -229,6 +229,8 @@ VALUES
                 dbConnection.Prepare(update).Step();
                 dbConnection.Dispose();
                 refreshingCategories();
+                selectedCat = -1;
+                Item.refreshingItems(selectedCat, Items);
 
             }
             else

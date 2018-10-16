@@ -174,6 +174,7 @@ VALUES
         {
             catBack.Visibility = Visibility.Collapsed;
             categoryGridView.SelectedIndex = -1;
+            selectedCat = -1;
             Item.refreshingItems(-1, Items);
         }
 
